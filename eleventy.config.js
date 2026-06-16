@@ -9,10 +9,15 @@ export default async function(eleventyConfig) {
 	// Passthrough
 	eleventyConfig.addPassthroughCopy("css");
 	eleventyConfig.addPassthroughCopy("js");
+	eleventyConfig.addPassthroughCopy("img");
 
 	// Collections
 	eleventyConfig.addCollection("posts", col =>
 		col.getFilteredByGlob("posts/**/*.md").sort((a, b) => b.date - a.date)
+	);
+
+	eleventyConfig.addCollection("toys", col =>
+		col.getFilteredByGlob("toys/**/*.md").sort((a, b) => b.date - a.date)
 	);
 
 	eleventyConfig.addCollection("tagList", col => {

@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: Toys
+permalink: /toys/
+---
+<div class="toys-page">
+  <div class="home-header">
+    <h1>Toys</h1>
+    <p class="site-description">Weird and fun projects — games, experiments, tools.</p>
+  </div>
+
+  {% if collections.toys.length %}
+    <div class="toys-grid">
+      {% for toy in collections.toys %}
+        <a href="{{ toy.url }}" class="toy-card">
+          <div class="toy-card-image-wrap">
+            {% if toy.data.thumbnail %}
+              <img
+                src="{{ toy.data.thumbnail }}"
+                alt="{{ toy.data.title }}"
+                class="toy-card-image"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="toy-card-no-image"></div>
+            {% endif %}
+          </div>
+          <div class="toy-card-body">
+            <h2 class="toy-card-title">{{ toy.data.title }}</h2>
+            {% if toy.data.description %}
+              <p class="toy-card-desc">{{ toy.data.description }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No toys yet. Add markdown files to the <code>toys/</code> folder.</p>
+  {% endif %}
+</div>

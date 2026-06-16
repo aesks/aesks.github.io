@@ -1,0 +1,32 @@
+---
+layout: base.njk
+---
+<article class="post toy-post">
+  {% if thumbnail %}
+    <div class="toy-hero">
+      <img src="{{ thumbnail }}" alt="{{ title }}" class="toy-hero-image">
+    </div>
+  {% endif %}
+  <header class="post-header">
+    <a href="/toys/" class="back-link">← Toys</a>
+    <h1 class="post-title">{{ title }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ date | dateToISO }}">{{ date | dateDisplay }}</time>
+      <span class="separator">·</span>
+      <span>{{ content | readingTime }}</span>
+      {% if tags %}
+        <span class="separator">·</span>
+        <span class="post-tags">
+          {% for tag in tags %}
+            {% if tag != "toys" %}
+              <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
+            {% endif %}
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+  </header>
+  <div class="post-content">
+    {{ content | safe }}
+  </div>
+</article>
