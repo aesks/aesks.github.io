@@ -1,6 +1,8 @@
 {
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.6"
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-plugin-rss": "^3.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2"
   },
   "name": "blog",
   "version": "1.0.0",
@@ -117,11 +119,11 @@
     "ws": "^8.21.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "build": "eleventy"
+    "start": "eleventy --serve",
+    "build": "eleventy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module"
 }

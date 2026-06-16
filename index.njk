@@ -1,0 +1,39 @@
+---
+layout: base.njk
+title: Home
+---
+<div class="home">
+  <div class="home-header">
+    <h1>{{ site.title }}</h1>
+    <p class="site-description">{{ site.description }}</p>
+  </div>
+
+  <section class="posts-list">
+    {% for post in collections.posts %}
+      <article class="post-card">
+        <div class="post-card-meta">
+          <time datetime="{{ post.date | dateToISO }}">{{ post.date | dateDisplay }}</time>
+          <span class="separator">·</span>
+          <span>{{ post.content | readingTime }}</span>
+        </div>
+        <h2 class="post-card-title">
+          <a href="{{ post.url }}">{{ post.data.title }}</a>
+        </h2>
+        {% if post.data.description %}
+          <p class="post-card-excerpt">{{ post.data.description }}</p>
+        {% endif %}
+        {% if post.data.tags %}
+          <div class="post-card-tags">
+            {% for tag in post.data.tags %}
+              {% if tag != "posts" %}
+                <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </article>
+    {% else %}
+      <p>No posts yet. Add markdown files to the <code>posts/</code> folder.</p>
+    {% endfor %}
+  </section>
+</div>
