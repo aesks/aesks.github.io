@@ -14,13 +14,12 @@ layout: base.njk
       <time datetime="{{ date | dateToISO }}">{{ date | dateDisplay }}</time>
       <span class="separator">·</span>
       <span>{{ content | readingTime }}</span>
-      {% if tags %}
+      {% set visibleTags = tags | filterTags %}
+      {% if visibleTags.length %}
         <span class="separator">·</span>
         <span class="post-tags">
-          {% for tag in tags %}
-            {% if tag != "toys" %}
-              <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
-            {% endif %}
+          {% for tag in visibleTags %}
+            <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
           {% endfor %}
         </span>
       {% endif %}

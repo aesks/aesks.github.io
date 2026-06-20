@@ -1,0 +1,60 @@
+---
+layout: base.njk
+title: Me
+permalink: /me/
+---
+<div class="me-page">
+
+  <section class="me-hero">
+    <h1 class="me-hero-title">HEY, IT'S MULHAM ALAMRY</h1>
+    <p class="me-hero-bio">{{ site.me.glimpse | safe }}</p>
+  </section>
+
+  <section class="me-about" id="about">
+    <div class="me-about-header">
+      <span class="me-about-title">About Me</span>
+      <span class="me-about-subtitle">Here's a glimpse ✨ of my autobiography</span>
+    </div>
+    <div class="me-about-grid">
+      <div>
+        <h3 class="me-col-title">Get to know me!</h3>
+        {% for para in site.me.bio.split('
+
+') %}
+          <p class="me-bio-text">{{ para | safe }}</p>
+        {% endfor %}
+      </div>
+      <div>
+        <h3 class="me-col-title">My Skills ⌨️</h3>
+        <div class="me-skills">
+          {% for skill in skills %}
+            <div class="me-skill" data-emojis="{{ skill.emojis | join(',') }}">
+              {{ skill.name }} <span class="skill-emoji">{{ skill.emojis[0] }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.me-skill[data-emojis]').forEach((chip) => {
+    const emojis = chip.dataset.emojis.split(',');
+    if (emojis.length <= 1) return;
+    const span = chip.querySelector('.skill-emoji');
+    let current = 0;
+    setInterval(() => {
+      span.style.opacity = '0';
+      setTimeout(() => {
+        let next;
+        do { next = Math.floor(Math.random() * emojis.length); } while (next === current);
+        current = next;
+        span.textContent = emojis[current];
+        span.style.opacity = '1';
+      }, 120);
+    }, 1200);
+  });
+</script>
+

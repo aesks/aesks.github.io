@@ -22,15 +22,14 @@ title: Home
         {% if post.data.description %}
           <p class="post-card-excerpt">{{ post.data.description }}</p>
         {% endif %}
-        {% if post.data.tags %}
+        {% set visibleTags = post.data.tags | filterTags %}
+          {% if visibleTags.length %}
           <div class="post-card-tags">
-            {% for tag in post.data.tags %}
-              {% if tag != "posts" %}
-                <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
-              {% endif %}
+            {% for tag in visibleTags %}
+              <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
             {% endfor %}
           </div>
-        {% endif %}
+          {% endif %}
       </article>
     {% else %}
       <p>No posts yet. Add markdown files to the <code>posts/</code> folder.</p>

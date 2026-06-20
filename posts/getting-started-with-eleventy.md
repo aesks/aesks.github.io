@@ -11,12 +11,24 @@ layout: post.njk
 
 [Eleventy](https://www.11ty.dev/) (11ty) is a simple static site generator that stays out of your way. No client-side JavaScript by default, no opinionated framework — just your content, your templates, and fast builds.
 
+This is some text with a footnote.[^1] And another one.[^2]
+
+[^1]: This is the first footnote definition.This is the first footnote definition.This is the first footnote definition.This is the first footnote definition.This is the first footnote definition.This is the first footnote definition.This is the first footnote definition.
+[^2]: This is the second footnote definition.
+
 ## Why 11ty
 
 - **Zero client-side JS by default** — what you write is what ships
 - **Multiple template languages** — Nunjucks, Liquid, Markdown, HTML, and more
 - **Fast builds** — even large sites build in seconds
 - **Highly configurable** — collections, filters, shortcodes, plugins
+
+### Why 11ty
+because its good
+
+### Why 11ty
+because its good
+
 
 ## Getting started
 

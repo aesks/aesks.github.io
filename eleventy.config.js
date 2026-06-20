@@ -1,10 +1,14 @@
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
+import markdownItFootnote from "markdown-it-footnote";
+import markdownItAnchor from "markdown-it-anchor";
 
 export default async function(eleventyConfig) {
 	// Plugins
 	eleventyConfig.addPlugin(syntaxHighlight);
 	eleventyConfig.addPlugin(rssPlugin);
+	eleventyConfig.amendLibrary("md", mdLib => mdLib.use(markdownItFootnote));
+	eleventyConfig.amendLibrary("md", mdLib => mdLib.use(markdownItAnchor, { tabIndex: false }));
 
 	// Passthrough
 	eleventyConfig.addPassthroughCopy("css");
@@ -23,10 +27,14 @@ export default async function(eleventyConfig) {
 	eleventyConfig.addCollection("tagList", col => {
 		const tags = new Set();
 		col.getAll().forEach(item => (item.data.tags || []).forEach(t => tags.add(t)));
-		return [...tags].filter(t => !["posts", "all"].includes(t)).sort();
+		return [...tags].filter(t => !["posts", "toys", "all"].includes(t)).sort();
 	});
 
 	// Filters
+	eleventyConfig.addFilter("filterTags", tags =>
+		(tags || []).filter(t => !["posts", "toys", "all"].includes(t))
+	);
+
 	eleventyConfig.addFilter("readingTime", content => {
 		const words = content.trim().split(/\s+/).length;
 		const mins = Math.ceil(words / 200);

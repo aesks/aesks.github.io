@@ -20,6 +20,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer">
+
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
 
@@ -41,6 +44,7 @@
         <div class="nav-links">
           <a href="/">Posts</a>
           <a href="/toys/">Toys</a>
+          <a href="/me/">Me</a>
           <a href="/tags/">Tags</a>
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">◑</button>
         </div>
@@ -56,10 +60,19 @@
 
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-socials">
+        {% for social in socials %}
+          <a href="{{ social.link }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.icon | replace('fa-', '') }}">
+            <i class="fa-brands {{ social.icon }}"></i>
+          </a>
+        {% endfor %}
+      </div>
       <p>© {{ site.author.name }} · <a href="/feed.xml">RSS</a></p>
     </div>
   </footer>
 
   <script src="/js/theme-toggle.js"></script>
+  <script src="/js/footnotes.js"></script>
+  <script src="/js/toc.js"></script>
 </body>
 </html>
