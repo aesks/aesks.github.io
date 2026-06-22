@@ -30,6 +30,22 @@ export default async function(eleventyConfig) {
 		return [...tags].filter(t => !["posts", "toys", "all"].includes(t)).sort();
 	});
 
+	eleventyConfig.addCollection("postTagList", col => {
+		const tags = new Set();
+		col.getFilteredByGlob("posts/**/*.md").forEach(item =>
+			(item.data.tags || []).forEach(t => tags.add(t))
+		);
+		return [...tags].filter(t => !["posts", "toys", "all"].includes(t)).sort();
+	});
+
+	eleventyConfig.addCollection("toyTagList", col => {
+		const tags = new Set();
+		col.getFilteredByGlob("toys/**/*.md").forEach(item =>
+			(item.data.tags || []).forEach(t => tags.add(t))
+		);
+		return [...tags].filter(t => !["posts", "toys", "all"].includes(t)).sort();
+	});
+
 	// Filters
 	eleventyConfig.addFilter("filterTags", tags =>
 		(tags || []).filter(t => !["posts", "toys", "all"].includes(t))

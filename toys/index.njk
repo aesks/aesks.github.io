@@ -9,10 +9,20 @@ permalink: /toys/
     <p class="site-description">Weird and fun projects — games, experiments, tools.</p>
   </div>
 
+  {% if collections.toyTagList.length %}
+  <div class="tag-filters" role="group" aria-label="Filter toys by tag">
+    <button class="tag-filter active" data-tag="all">All</button>
+    {% for tag in collections.toyTagList %}
+      <button class="tag-filter" data-tag="{{ tag }}">{{ tag }}</button>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   {% if collections.toys.length %}
     <div class="toys-grid">
       {% for toy in collections.toys %}
-        <a href="{{ toy.url }}" class="toy-card">
+        {% set visibleTags = toy.data.tags | filterTags %}
+        <a href="{{ toy.url }}" class="toy-card" data-tags="{{ visibleTags | join(' ') }}">
           <div class="toy-card-image-wrap">
             {% if toy.data.thumbnail %}
               <img

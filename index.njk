@@ -5,12 +5,22 @@ title: Home
 <div class="home">
   <div class="home-header">
     <h1>{{ site.title }}</h1>
-    <p class="site-description">{{ site.description }}</p>
+    <p class="site-description">A personal blog by <a href="/me/">{{ site.author.name }}</a></p>
   </div>
+
+  {% if collections.postTagList.length %}
+  <div class="tag-filters" role="group" aria-label="Filter posts by tag">
+    <button class="tag-filter active" data-tag="all">All</button>
+    {% for tag in collections.postTagList %}
+      <button class="tag-filter" data-tag="{{ tag }}">{{ tag }}</button>
+    {% endfor %}
+  </div>
+  {% endif %}
 
   <section class="posts-list">
     {% for post in collections.posts %}
-      <article class="post-card">
+      {% set visibleTags = post.data.tags | filterTags %}
+      <article class="post-card" data-tags="{{ visibleTags | join(' ') }}">
         <div class="post-card-meta">
           <time datetime="{{ post.date | dateToISO }}">{{ post.date | dateDisplay }}</time>
           <span class="separator">·</span>
@@ -22,14 +32,13 @@ title: Home
         {% if post.data.description %}
           <p class="post-card-excerpt">{{ post.data.description }}</p>
         {% endif %}
-        {% set visibleTags = post.data.tags | filterTags %}
-          {% if visibleTags.length %}
-          <div class="post-card-tags">
-            {% for tag in visibleTags %}
-              <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
-            {% endfor %}
-          </div>
-          {% endif %}
+        {% if visibleTags.length %}
+        <div class="post-card-tags">
+          {% for tag in visibleTags %}
+            <button class="tag" data-tag="{{ tag }}">{{ tag }}</button>
+          {% endfor %}
+        </div>
+        {% endif %}
       </article>
     {% else %}
       <p>No posts yet. Add markdown files to the <code>posts/</code> folder.</p>
